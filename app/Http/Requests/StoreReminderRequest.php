@@ -23,7 +23,7 @@ class StoreReminderRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date',
+            'date' => 'required|date|after:today',
             'reminder' => 'required|string',
         ];
     }

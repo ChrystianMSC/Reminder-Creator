@@ -16,7 +16,7 @@ class ReminderController extends Controller
      */
     public function index()
     {
-        return ReminderResource::collection(Reminder::query()->orderBy('date', 'desc')->paginate(10));
+        return ReminderResource::collection(Reminder::query()->orderBy('date', 'asc')->paginate(10));
     }
 
     /**

@@ -23,15 +23,29 @@ function SeeReminders() {
             });
     };
 
-    const onDeleteClick2 = (date) => {
+    const onDeleteClick2 = (reminder) => {
         if (!window.confirm("Are you sure you want to delete this reminder?")) {
             return;
         }
-        axiosClient.delete(`/reminder/${date.id}`).then(() => {
-            // setNotification("User was successfully deleted");
+        axiosClient.delete(`/reminder/${reminder.id}`).then(() => {
             getDate();
         });
     };
+
+    // Merge rows with the same date
+    const mergedData = [];
+    date.forEach((u) => {
+        const existingRow = mergedData.find((row) => row.date === u.date);
+        if (existingRow) {
+            existingRow.reminders.push({ id: u.id, reminder: u.reminder });
+        } else {
+            mergedData.push({
+                id: u.id,
+                date: u.date,
+                reminders: [{ id: u.id, reminder: u.reminder }],
+            });
+        }
+    });
 
     return (
         <div>
@@ -53,47 +67,56 @@ function SeeReminders() {
                         <tr>
                             <th>ID</th>
                             <th>Date</th>
-                            <th>reminders</th>
+                            <th>Reminders</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    {loading && (
-                        <tbody>
+                    <tbody>
+                        {loading ? (
                             <tr>
                                 <td colSpan="4" className="text-center">
                                     Loading...
                                 </td>
                             </tr>
-                        </tbody>
-                    )}
-                    {!loading && (
-                        <tbody>
-                            {date.map((u) => (
-                                <tr key={u.id}>
-                                    <td>{u.id}</td>
-                                    <td>{u.date}</td>
-                                    <td>{u.reminder}</td>
+                        ) : (
+                            mergedData.map((row) => (
+                                <tr key={row.id}>
+                                    <td>{row.id}</td>
+                                    <td>{row.date}</td>
                                     <td>
-                                        <Link
-                                            className="btn-edit"
-                                            to={
-                                                "/seeReminders/Reminder/" + u.id
-                                            }
-                                        >
-                                            Edit
-                                        </Link>
-                                        &nbsp;
-                                        <button
-                                            className="btn-delete"
-                                            onClick={(ev) => onDeleteClick2(u)}
-                                        >
-                                            Delete
-                                        </button>
+                                        <ul>
+                                            {row.reminders.map((reminder) => (
+                                                <li key={reminder.id}>
+                                                    {reminder.reminder}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {row.reminders.map((reminder) => (
+                                            <div key={reminder.id}>
+                                                <Link
+                                                    className="btn-edit"
+                                                    to={`/seeReminders/Reminder/${reminder.id}`}
+                                                >
+                                                    Edit
+                                                </Link>
+                                                &nbsp;
+                                                <button
+                                                    className="btn-delete"
+                                                    onClick={() =>
+                                                        onDeleteClick2(reminder)
+                                                    }
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        ))}
                                     </td>
                                 </tr>
-                            ))}
-                        </tbody>
-                    )}
+                            ))
+                        )}
+                    </tbody>
                 </table>
             </div>
         </div>
