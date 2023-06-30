@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    baseURL: "${import.meta.env.VITE_API_BASE_URL}/api",
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
 });
 
 axiosClient.interceptors.request.use((config) => {
-    const toke = localStorage.get("ACESS_TOKEN");
-    config.headers.Authorization = "Bearer ${token}";
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
 });
 
@@ -16,8 +16,11 @@ axiosClient.interceptors.response.use(
     },
     (error) => {
         const { response } = error;
-        if (response.status == 401) {
-            localStorage.removeItem("ACESS_TOKEN");
+        if (response.status === 401) {
+            localStorage.removeItem("ACCESS_TOKEN");
+            // window.location.reload();
+        } else if (response.status === 404) {
+            //Show not found
         }
 
         throw error;

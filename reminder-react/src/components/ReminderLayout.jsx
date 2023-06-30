@@ -1,15 +1,26 @@
 import { Link, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
+import axiosClient from "../axios-client";
+import { useEffect } from "react";
 
 function ReminderLayout() {
-    const { user, token } = useStateContext();
+    const { user, token, setToken } = useStateContext();
     if (!token) {
         return <Navigate to="/login" />;
     }
 
     const onLogout = (event) => {
         event.preventDefault();
+        axiosClient.post("/logout").then(() => {
+            setToken(null);
+        });
     };
+
+    useEffect(() => {
+        axiosClient.get("/user").then(({ data }) => {
+            setUser(data);
+        });
+    }, []);
 
     return (
         <div id="reminderLayout">

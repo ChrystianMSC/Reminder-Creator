@@ -1,29 +1,47 @@
 import { createContext, useContext, useState } from "react";
 
 const StateContext = createContext({
-    user: null,
-    toke: null,
+    currentUser: null,
+    token: null,
+    notification: null,
     setUser: () => {},
     setToken: () => {},
+    setNotification: () => {},
 });
 
-// localStorage.getItem("ACESS_TOKEN")
+export const ContextProvider = ({ children }) => {
+    const [user, setUser] = useState({});
+    const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
+    const [notification, _setNotification] = useState("");
 
-export const ContextProvide = ({ children }) => {
-    const [user, setUser] = useState({
-        name: "Chrystian",
-    });
-    const [token, _setToken] = useState(1);
     const setToken = (token) => {
         _setToken(token);
         if (token) {
-            localStorage.setItem("ACESS_TOKEN", token);
+            localStorage.setItem("ACCESS_TOKEN", token);
         } else {
-            localStorage.removeItem("ACESS_TOKEN");
+            localStorage.removeItem("ACCESS_TOKEN");
         }
     };
+
+    const setNotification = (message) => {
+        _setNotification(message);
+
+        setTimeout(() => {
+            _setNotification("");
+        }, 5000);
+    };
+
     return (
-        <StateContext.Provider value={{ user, token, setUser, setToken }}>
+        <StateContext.Provider
+            value={{
+                user,
+                setUser,
+                token,
+                setToken,
+                notification,
+                setNotification,
+            }}
+        >
             {children}
         </StateContext.Provider>
     );
