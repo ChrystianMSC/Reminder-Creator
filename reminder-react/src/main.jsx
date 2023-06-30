@@ -4,9 +4,12 @@ import App from "./App.jsx";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router.jsx";
+import { ContextProvide } from "./contexts/ContextProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <ContextProvide>
+            <RouterProvider router={router} />
+        </ContextProvide>
     </React.StrictMode>
 );
