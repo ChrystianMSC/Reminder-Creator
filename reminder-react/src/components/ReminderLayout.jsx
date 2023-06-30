@@ -4,7 +4,7 @@ import axiosClient from "../axios-client";
 import { useEffect } from "react";
 
 function ReminderLayout() {
-    const { user, token, setToken, setUser } = useStateContext();
+    const { user, token, setToken, setUser, notification } = useStateContext();
     if (!token) {
         return <Navigate to="/login" />;
     }
@@ -34,7 +34,7 @@ function ReminderLayout() {
                     <div>
                         {user.name}
                         <a href="#" onClick={onLogout} className="btn-logout">
-                            Logout
+                            LogOut
                         </a>
                     </div>
                 </header>
@@ -42,6 +42,7 @@ function ReminderLayout() {
                     <Outlet />
                 </main>
             </div>
+            {notification && <div className="notification">{notification}</div>}
         </div>
     );
 }

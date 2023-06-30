@@ -26,14 +26,6 @@ const router = createBrowserRouter([
                 element: <About />,
             },
             {
-                path: "/seeReminders/new",
-                element: <Create key="createUser" />,
-            },
-            {
-                path: "/seeReminders/:id",
-                element: <Create key="userUpdate" />,
-            },
-            {
                 path: "/seeReminders/newReminder",
                 element: <Create key="createReminder" />,
             },

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../axios-client";
+import { useStateContext } from "../contexts/ContextProvider";
 
 function Create() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState(null);
+    const { setNotification } = useStateContext;
     const [date, setDate] = useState({
         id: null,
         date: [],
@@ -20,6 +22,7 @@ function Create() {
                 .put(`/reminder/${date.id}`, date)
                 .then(() => {
                     navigate("/seeReminders");
+                    setNotification("Reminder successfully updated");
                 })
                 .catch((err) => {
                     const response = err.response;
@@ -33,6 +36,7 @@ function Create() {
                 .post(`/reminder`, date)
                 .then(() => {
                     navigate("/seeReminders");
+                    setNotification("Reminder successfully created");
                 })
                 .catch((err) => {
                     const response = err.response;
