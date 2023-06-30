@@ -1,7 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import About from "../pages/About";
 import SeeReminders from "../pages/SeeReminders";
-import CreateReminder from "../pages/CreateReminder";
 import NotFound from "../pages/NotFound";
 import ReminderLayout from "../components/ReminderLayout";
 import Login from "../pages/Login";
@@ -24,10 +23,6 @@ const router = createBrowserRouter([
             {
                 path: "/about",
                 element: <About />,
-            },
-            {
-                path: "/createReminder",
-                element: <CreateReminder />,
             },
         ],
     },

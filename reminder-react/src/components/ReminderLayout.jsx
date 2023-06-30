@@ -4,7 +4,7 @@ import axiosClient from "../axios-client";
 import { useEffect } from "react";
 
 function ReminderLayout() {
-    const { user, token, setToken } = useStateContext();
+    const { user, token, setToken, setUser } = useStateContext();
     if (!token) {
         return <Navigate to="/login" />;
     }
@@ -26,7 +26,6 @@ function ReminderLayout() {
         <div id="reminderLayout">
             <aside>
                 <Link to="/seeReminders">See Reminders</Link>
-                <Link to="/createReminder">Create Reminder</Link>
                 <Link to="/about">About</Link>
             </aside>
             <div className="content">
