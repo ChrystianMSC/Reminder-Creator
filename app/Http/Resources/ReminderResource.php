@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class ReminderResource extends JsonResource
 {
     public static $wrap = false;
     /**
@@ -18,9 +18,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'created_at' => $this->created_at->format('D-m-y H:i:s'),
+            'date' => $this->date,
+            'reminder' => $this->reminder,
         ];
     }
 }
