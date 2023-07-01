@@ -84,6 +84,7 @@ function Create() {
                                 onChange={(ev) =>
                                     setDate({ ...date, date: ev.target.value })
                                 }
+                                placeholder="Date"
                             />
                             <input
                                 value={date.reminder}
