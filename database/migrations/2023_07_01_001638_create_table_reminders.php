@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -15,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->string('reminder');
+            $table->timestamps();
         });
     }
 
@@ -24,5 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('reminders');
+
     }
 };
+
