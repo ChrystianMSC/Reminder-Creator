@@ -1,3 +1,10 @@
+# Introdução 
+
+O Sistema de Criação de Lembretes é uma solução inteligente e intuitiva, desenvolvida com as poderosas tecnologias PHP, Laravel e React, que veio para facilitar a organização das suas tarefas diárias.
+
+Com uma interface amigável e funcionalidades claras, esse sistema permite que você crie, edite e exclua lembretes de maneira descomplicada. Com apenas alguns cliques, você pode inserir o título, descrição e data/hora do lembrete, garantindo que nenhum compromisso importante seja esquecido.
+
+
 # Instruções de Execução
 
 ## Primemiro de tudo
